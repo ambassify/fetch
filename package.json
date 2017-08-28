@@ -1,0 +1,23 @@
+{
+  "name": "@ambassify/fetch",
+  "version": "1.0.0",
+  "description": "Load unfetch or node-fetch depending on use-case",
+  "main": "index.js",
+  "browser": "browser.js",
+  "scripts": {
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ambassify/fetch.git"
+  },
+  "keywords": [
+    "fetch"
+  ],
+  "author": "Ambassify <dev@ambassify.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ambassify/fetch/issues"
+  },
+  "homepage": "https://github.com/ambassify/fetch#readme"
+}
