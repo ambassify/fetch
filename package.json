@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ambassify/fetch#readme",
   "dependencies": {
-    "node-fetch": "*",
+    "node-fetch": "^2.0.0",
     "unfetch": "*"
   }
 }
