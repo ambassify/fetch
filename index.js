@@ -21,8 +21,54 @@ if (
     delete global.fetch;
 }
 
+function getAppName() {
+    if (typeof process == 'undefined' && global.location)
+        return (global.location && global.location.hostname) || '';
+
+    if (typeof process == 'undefined')
+        return 'non-node';
+
+    if (process && process.env && process.env['WORKER_NAME'])
+        return process.env['WORKER_NAME'];
+
+    if (process && process.env && process.env['APP_NAME'])
+        return process.env['APP_NAME'];
+
+    if (process && process.env && process.env['npm_package_name'])
+        return process.env['npm_package_name'];
+
+    if (process && typeof process.cwd == 'function') {
+        try {
+            var pkg = require(process.cwd() + '/package.json');
+            if (pkg && pkg.name)
+                return pkg.name;
+        }
+        catch (e) { /* package not found */ }
+    }
+
+    return 'unknown-node';
+}
+
 // Based on `unfetch` polyfill
 // https://github.com/developit/unfetch/blob/master/packages/isomorphic-unfetch/index.js
-module.exports = global.fetch || (
-    typeof process=='undefined' ? (require('unfetch').default || require('unfetch')) : require('node-fetch')
-);
+function getImplementation() {
+    var impl = global.fetch;
+    var headers = {
+        'user-agent': 'Ambassify ' + getAppName() + ' - dev@ambassify.com'
+    };
+
+    if (!impl && typeof process == 'undefined')
+        impl = require('unfetch').default || require('unfetch');
+
+    if (!impl && typeof process != 'undefined')
+        impl = require('node-fetch');
+
+    return function fetch(url, options) {
+        options = Object.assign({}, options || {});
+        options.headers = Object.assign({}, headers, options.headers || {});
+
+        return impl(url, options);
+    };
+}
+
+module.exports = getImplementation();
