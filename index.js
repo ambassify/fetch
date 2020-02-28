@@ -1,3 +1,5 @@
+var uuid = require('uuid').v4;
+
 if (
     (
         /**
@@ -53,8 +55,15 @@ function getAppName() {
 // https://github.com/developit/unfetch/blob/master/packages/isomorphic-unfetch/index.js
 function getImplementation() {
     var impl = global.fetch;
+    var appName = getAppName();
+    var appIdentifier = appName
+        .replace(/[^a-z0-9]+/ig, '-')
+        .toLowerCase()
+        .replace(/(^-)|(-$)/ig, '');
+
     var headers = {
-        'user-agent': 'Ambassify ' + getAppName() + ' - dev@ambassify.com'
+        'user-agent': 'Ambassify ' + appName + ' - dev@ambassify.com',
+        'x-request-id': appIdentifier + '+' + uuid(),
     };
 
     if (!impl && typeof process == 'undefined')
