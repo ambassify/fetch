@@ -23,6 +23,6 @@
   "homepage": "https://github.com/ambassify/fetch#readme",
   "dependencies": {
     "node-fetch": "*",
-    "unfetch": "*"
+    "unfetch": "^4.2.0"
   }
 }
