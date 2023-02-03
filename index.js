@@ -76,6 +76,9 @@ function getImplementation() {
         options = Object.assign({}, options || {});
         options.headers = Object.assign({}, headers, options.headers || {});
 
+        if (options.body && typeof options.duplex === 'undefined')
+            options.duplex = 'half';
+
         return impl(url, options);
     };
 }
