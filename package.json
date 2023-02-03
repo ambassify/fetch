@@ -1,6 +1,6 @@
 {
   "name": "@ambassify/fetch",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Load unfetch or node-fetch depending on use-case",
   "main": "index.js",
   "browser": "browser.js",
